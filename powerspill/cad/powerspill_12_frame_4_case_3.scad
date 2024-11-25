@@ -78,6 +78,19 @@ module cutout_thumb_v4() {
     }
 }
 
+module cutout_thumb_v5() {
+    r = 15; // Bottom Radius
+    g = 60; // Top Radius
+    h = 17.5;
+
+    translate([-26.5, -50.2, 1.5]) rotate([-9, -13, 17.4]) for (i = [-1:1]) {
+        translate([0, 0, r])
+        rotate([0, g*i, 0])
+        translate([0, 0, -r])
+        xda();
+    }
+}
+
 module wiring_cutout_thumb_v4() {
     r = 70;
     g = 10;
@@ -104,6 +117,32 @@ module testblock_thumb_v4() {
             rotate([10, 0, 0]) testsocket(d=2, r=r2, l=l, u=u2);
     }
 }
+
+module testblock_thumb_v5() {
+    r = 15; // Bottom Radius
+    h = 60; // Top Radius
+
+    translate([-26.5, -50.2, 1.5]) rotate([-9, -13, 17.4]) for (i = [-1:1]) {
+        r2 = i == -1 ? 2 : 0;
+        l = i == 1 ? 2 : 0;
+        u2 = i == 1 ? 2 : 0;
+
+        translate([0, 0, r])
+        rotate([0, h*i, 0])
+        translate([0, 0, -r])
+        testsocket(d=2, r=r2, l=l, u=u2);
+    }
+
+    // translate([-26.5, -50.2, 1.5]) rotate([-9, -13, 17.4]) for (i = [-1:1]) {
+    //     r2 = i == -1 ? 2 : 0;
+    //     l = i == 1 ? 2 : 0;
+    //     u2 = i == 1 ? 2 : 0;
+    //
+    //     translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0])
+    //         rotate([10, 0, 0]) testsocket(d=2, r=r2, l=l, u=u2);
+    // }
+}
+
 
 module cutout() {
     for (i = [0:5]) {
@@ -333,13 +372,13 @@ module cutout_travel() {
 
 // Place Block
 
-difference() {
-   union() {
-       translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) testblock();
-       translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) testblock_thumb_v5();
-   }
-    union() {
-        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout();
-        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout_thumb_v5();
-    }
-}
+// difference() {
+//    union() {
+//        translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) testblock();
+//        translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) testblock_thumb_v4();
+//    }
+//     union() {
+//         #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout();
+//         #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout_thumb_v4();
+//     }
+// }
