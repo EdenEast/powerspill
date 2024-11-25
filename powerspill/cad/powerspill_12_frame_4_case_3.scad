@@ -9,9 +9,15 @@ module xda() {
         translate([0, 0, -9]) cube([18.2, 18.2, 1], center=true);
     }
 
-    translate([0, 0, -13.5]) cube([14, 14, 16], center=true);
+    // Screw holes for mounting individual pcbs
+    translate([7,7,-16]) cylinder(14,1,1,center=true);
+    translate([-7,-7,-16]) cylinder(14,1,1,center=true);
+    translate([-7,7,-16]) cylinder(14,1,1,center=true);
+    translate([7,-7,-16]) cylinder(14,1,1,center=true);
+
     translate([0, 0, -19.75]) cube([6, 16.2, 3.5], center=true);
 
+    translate([0, 0, -13.5]) cube([14, 14, 16], center=true);
     translate([0, 0, -22.3]) cube([u, u, 1.6], center=true);
 
     translate([0, 0, -21]) cube([13, 13, 11], center=true);
