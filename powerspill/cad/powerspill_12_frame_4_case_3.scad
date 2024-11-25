@@ -37,7 +37,7 @@ module xda_wiring(tol=0.2) {
 }
 
 module testsocket(u=0, d=0, l=0, r=0) {
-    translate([r/2 - l/2, u/2 - d/2, -19]) cube([18 + l + r, 18 + u + d, 5], center=true);
+    translate([r/2 - l/2, u/2 - d/2, -19]) cube([18 + l + r, 18 + u + d, 3], center=true);
 }
 
 module casesocket(u=0, d=0, l=0, r=0) {
@@ -219,7 +219,7 @@ module testblock() {
                 // Translate and rotate to correct row and col
                 translate(tr) rotate(rt)
                     translate([0,y*3, z*2]) rotate([(a*-1)/4,0,0])
-                    testsocket(l=2,r=2,u=u2,d=d);
+                    testsocket(l=2,r=2,u=0,d=d);
             }
 
             if (i == 3 && j == 2) {
