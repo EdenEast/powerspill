@@ -8,12 +8,12 @@ module xda() {
         translate([0, 0, -9.5/2]) cube([13.8, 13.8, 9.5], center=true);
         translate([0, 0, -9]) cube([18.2, 18.2, 1], center=true);
     }
-    
+
     translate([0, 0, -13.5]) cube([14, 14, 16], center=true);
     translate([0, 0, -19.75]) cube([6, 16.2, 3.5], center=true);
-    
+
     translate([0, 0, -22.3]) cube([u, u, 1.6], center=true);
-    
+
     translate([0, 0, -21]) cube([13, 13, 11], center=true);
 }
 
@@ -65,9 +65,9 @@ module cutout_thumb_v4() {
     r = 70;
     g = 10;
     h = 17.5;
-    
+
     translate([-26.5, -50.2, 1.5]) rotate([-9, -13, 17.4]) for (i = [-1:1]) {
-        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0]) 
+        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0])
             rotate([10, 0, 0]) xda();
     }
 }
@@ -76,9 +76,9 @@ module wiring_cutout_thumb_v4() {
     r = 70;
     g = 10;
     h = 17.5;
-    
+
     translate([-26.5, -50.2, 1.5]) rotate([-9, -13, 17.4]) for (i = [-1:1]) {
-        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0]) 
+        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0])
             rotate([10, 0, 0]) xda_wiring();
     }
 }
@@ -87,14 +87,14 @@ module testblock_thumb_v4() {
     r = 70;
     g = 10;
     h = 17.5;
-    
+
     translate([-26.5, -50.2, 1.5]) rotate([-9, -13, 17.4]) for (i = [-1:1]) {
-        
+
         r2 = i == -1 ? 2 : 0;
         l = i == 1 ? 2 : 0;
         u2 = i == 1 ? 2 : 0;
-        
-        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0]) 
+
+        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0])
             rotate([10, 0, 0]) testsocket(d=2, r=r2, l=l, u=u2);
     }
 }
@@ -103,14 +103,14 @@ module cutout() {
     for (i = [0:5]) {
         tr = trans[i];
         rt = rots[i];
-        
+
         translate(tr) rotate(rt) for (j = [starts[i]:ends[i]]) {
             a = angles[i][j+1];
             y = arc_offsets[i][j+1][0];
             z = arc_offsets[i][j+1][1];
-            
+
             translate([0, y, z]) rotate([a, 0, 0]) xda();
-            
+
             if (i == 3 && j == 2) {
                 translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0]) xda();
             }
@@ -122,14 +122,14 @@ module wiring_cutout() {
     for (i = [0:5]) {
         tr = trans[i];
         rt = rots[i];
-        
+
         translate(tr) rotate(rt) for (j = [starts[i]:ends[i]]) {
             a = angles[i][j+1];
             y = arc_offsets[i][j+1][0];
             z = arc_offsets[i][j+1][1];
-            
+
             translate([0, y, z]) rotate([a, 0, 0]) xda_wiring();
-            
+
             if (i == 3 && j == 2) {
                 translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0]) xda_wiring();
             }
@@ -141,24 +141,24 @@ module testblock() {
     for (i = [0:5]) {
         tr = trans[i];
         rt = rots[i];
-        
+
         for (j = [starts[i]:ends[i]]) {
             a = angles[i][j+1];
             y = arc_offsets[i][j+1][0];
             z = arc_offsets[i][j+1][1];
-            
+
             l = i == 0 && j != starts[i] ? 2 : 0;
             r = i == 5 ? 2 : 0;
             u2 = j == ends[i] && i != 4 ? 2 : 0;
             d = j == starts[i] && i > 1 ? 2 : 0;
-            
+
             hull() {
                 translate(tr) rotate(rt) translate([0, y, z]) rotate([a, 0, 0]) testsocket(l=l, r=r, u=u2, d=d);
             }
-            
+
             if (i == 3 && j == 2) {
                 hull() {
-                    translate(tr) rotate(rt) 
+                    translate(tr) rotate(rt)
                         translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0]) testsocket(u=2, r=2);
                 }
             }
@@ -170,24 +170,24 @@ module caseblock() {
     for (i = [0:5]) {
         tr = trans[i];
         rt = rots[i];
-        
+
         for (j = [starts[i]:ends[i]]) {
             a = angles[i][j+1];
             y = arc_offsets[i][j+1][0];
             z = arc_offsets[i][j+1][1];
-            
+
             l = i == 0 ? 5 : 0;
             r = i == 5 ? 5 : 0;
             u2 = j == ends[i] && i != 4 ? 5 : 0;
             d = j == starts[i] && i > 1 ? 5 : 0;
-            
+
             if (i != 1 || j != -1) hull() {
                 translate(tr) rotate(rt) translate([0, y, z]) rotate([a, 0, 0]) casesocket(l=l, r=r, u=u2, d=d);
             }
-            
+
             if (i == 3 && j == 2) {
                 hull() {
-                    translate(tr) rotate(rt) 
+                    translate(tr) rotate(rt)
                         translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0]) casesocket(u=5, r=5);
                 }
             }
@@ -199,14 +199,14 @@ module caseblock_thumb_v4() {
     r = 70;
     g = 10;
     h = 17.5;
-    
+
     translate([-26.5, -50.2, 1.5]) rotate([-9, -13, 17.4]) for (i = [-1:1]) {
-        
+
         r2 = i == -1 ? 5 : 0;
         l = i == 1 ? 5 : 0;
         u2 = i == 1 ? 5 : 0;
-        
-        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0]) 
+
+        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0])
             rotate([10, 0, 0]) casesocket(d=5, r=r2, l=l, u=u2);
     }
 }
@@ -215,23 +215,23 @@ module cutout_thumb_travel_v4() {
     r = 70;
     g = 10;
     h = 17.5;
-    
+
     translate([-26.5, -50.2, 1.5]) rotate([-9, -13, 17.4]) for (i = [-1:1]) {
-        
-        l2 = i == -1 ? 12 : 
+
+        l2 = i == -1 ? 12 :
              i == 0 ? 1.5 :
              0;
-        r2 = i == 1 ? 25 : 
+        r2 = i == 1 ? 25 :
              i == 0 ? 1.5 :
              0;
         u2 = 0;// i == 1 ? 5 : 0;
         d2 = 0;// i == 1 ? 5 : 0;
-        
-        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0]) 
+
+        translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0])
             rotate([10, 0, 0]) xda_travel(l=l2, r=r2, u=u2, d=d2);
-        
+
         if (i == -1) {
-            translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0]) 
+            translate([0, -r, 0]) rotate([-g, 0, 0]) rotate([0, 0, h*i]) rotate([g, 0, 0]) translate([0, r, 0])
                 rotate([10, 0, 0]) xda_travel(u=15);
         }
     }
@@ -241,12 +241,12 @@ module cutout_travel() {
     for (i = [0:5]) {
         tr = trans[i];
         rt = rots[i];
-        
+
         translate(tr) rotate(rt) for (j = [starts[i]:ends[i]]) {
             a = angles[i][j+1];
             y = arc_offsets[i][j+1][0];
             z = arc_offsets[i][j+1][1];
-            
+
             l2 = i == 5 && (j == -1 || j == 1) ? 15 :
                  i == 2 && j == -1 ? 15 :
                  i == 3 && j == 2 ? 15 :
@@ -258,17 +258,17 @@ module cutout_travel() {
                  i == 1 && j == 2 ? 15 :
                  i == 4 && j == -1 ? 15 :
                  0;
-            u2 = i == 5 && j == 0 ? 15 : 
-                 i == 0 && (j == 0 || j == 1) ? 15 : 
+            u2 = i == 5 && j == 0 ? 15 :
+                 i == 0 && (j == 0 || j == 1) ? 15 :
                  0;
-            d2 = i == 5 && j == 0 ? 15 : 
-                 i == 0 && (j == -1 || j == 0 || j == 1) ? 15 : 
+            d2 = i == 5 && j == 0 ? 15 :
+                 i == 0 && (j == -1 || j == 0 || j == 1) ? 15 :
                  0;
-            
+
             translate([0, y, z]) rotate([a, 0, 0]) xda_travel(l=l2, r=r2, u=u2, d=d2);
-            
+
             if (i == 3 && j == 2) {
-                translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0]) 
+                translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0])
                     xda_travel(d=15);
             }
         }
@@ -296,6 +296,6 @@ difference() {
 //        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout_travel();
 //        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout_thumb_travel_v4();
 //    }
-    
+
 //    translate([0, 0, -1000]) cube([2000, 2000, 2000], center=true);
 }
