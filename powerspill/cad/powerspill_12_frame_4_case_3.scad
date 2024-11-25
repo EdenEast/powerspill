@@ -117,6 +117,12 @@ module cutout() {
 
             translate([0, y, z]) rotate([a, 0, 0]) xda();
 
+            // Palm key
+            if (i == 5 && j == -1) {
+                translate([0, y * 3, z * 2]) rotate([(a * -1) / 4, 0, 0])
+                xda();
+            }
+
             if (i == 3 && j == 2) {
                 translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0]) xda();
             }
@@ -135,6 +141,13 @@ module wiring_cutout() {
             z = arc_offsets[i][j+1][1];
 
             translate([0, y, z]) rotate([a, 0, 0]) xda_wiring();
+
+
+            // Palm key
+            if (i == 5 && j == -1) hull() {
+                translate([0,y*3, z*2]) rotate([(a*-1)/4,0,0])
+                xda_wiring();
+            }
 
             if (i == 3 && j == 2) {
                 translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0]) xda_wiring();
@@ -160,6 +173,14 @@ module testblock() {
 
             hull() {
                 translate(tr) rotate(rt) translate([0, y, z]) rotate([a, 0, 0]) testsocket(l=l, r=r, u=u2, d=d);
+            }
+
+            // Palm key
+            if (i == 5 && j == -1) {
+                // Translate and rotate to correct row and col
+                translate(tr) rotate(rt)
+                    translate([0,y*3, z*2]) rotate([(a*-1)/4,0,0])
+                    testsocket(l=2,r=2,u=u2,d=d);
             }
 
             if (i == 3 && j == 2) {
@@ -189,6 +210,13 @@ module caseblock() {
 
             if (i != 1 || j != -1) hull() {
                 translate(tr) rotate(rt) translate([0, y, z]) rotate([a, 0, 0]) casesocket(l=l, r=r, u=u2, d=d);
+            }
+
+            // Palm key
+            if (i == 5 && j == -1) hull() {
+                translate(tr) rotate(rt)
+                    translate([0,y*3, z*2]) rotate([(a*-1)/4,0,0])
+                    casesocket(l=l, r=r, u=u2, d=d);
             }
 
             if (i == 3 && j == 2) {
@@ -273,6 +301,12 @@ module cutout_travel() {
 
             translate([0, y, z]) rotate([a, 0, 0]) xda_travel(l=l2, r=r2, u=u2, d=d2);
 
+            // Palm key
+            if (i == 5 && j == -1) hull() {
+                translate([0,y*3, z*2]) rotate([(a*-1)/4,0,0])
+                xda_travel();
+            }
+
             if (i == 3 && j == 2) {
                 translate([0, 0, -u*sin(2.5)]) rotate([0, -5, 0]) translate([u, y, z]) rotate([a, 0, 0])
                     xda_travel(d=15);
@@ -281,19 +315,13 @@ module cutout_travel() {
     }
 }
 
-difference() {
+// Case Block
+
+// difference() {
 //    union() {
 //        translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) caseblock();
 //        translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) caseblock_thumb_v4();
 //    }
-//    union() {
-//        translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) testblock();
-//        translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) testblock_thumb_v4();
-//    }
-    union() {
-        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout();
-        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout_thumb_v4();
-    }
 //    union() {
 //        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) wiring_cutout();
 //        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) wiring_cutout_thumb_v4();
@@ -301,7 +329,17 @@ difference() {
 //    union() {
 //        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout_travel();
 //        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout_thumb_travel_v4();
-//    }
+// }
 
-//    translate([0, 0, -1000]) cube([2000, 2000, 2000], center=true);
+// Place Block
+
+difference() {
+   union() {
+       translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) testblock();
+       translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) testblock_thumb_v5();
+   }
+    union() {
+        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout();
+        #translate([0, 0, 35]) rotate([-5.008702217161754788, 0, 0]) cutout_thumb_v5();
+    }
 }
